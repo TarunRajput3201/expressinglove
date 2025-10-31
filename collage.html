@@ -8,106 +8,93 @@
     body {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, #ffb3d9, #fff5fc);
+        background: linear-gradient(135deg, #ff9acb, #ffe6f5);
         font-family: "Poppins", sans-serif;
         overflow-x: hidden;
+        overflow-y: hidden; /* ✅ stops page from moving */
+        position: relative;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
 
     .title {
         text-align: center;
-        font-size: 28px;
+        font-size: 26px;
         font-weight: bold;
         color: #d63384;
-        padding: 15px;
-        text-shadow: 2px 2px #ffffff;
+        padding: 10px 0;
         animation: heartbeat 1.5s infinite;
     }
+    @keyframes heartbeat { 50% { transform: scale(1.07); } }
 
-    @keyframes heartbeat {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.08); }
-        100% { transform: scale(1); }
-    }
-
+    /* Collage Fit on Screen */
     .collage {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-        padding: 10px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        width: 92%;
+        margin: auto;
+        height: auto;
     }
 
     .collage img {
-        width: 45%;
-        max-width: 180px;
-        height: 150px;
+        width: 100%;
+        height: 100px;
         object-fit: cover;
-        border-radius: 12px;
-        border: 3px solid white;
-        box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        border-radius: 10px;
+        border: 2px solid white;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.25);
         cursor: pointer;
-        transition: transform 0.2s ease;
-    }
-
-    .collage img:hover {
-        transform: scale(1.05);
-    }
-
-    /* ✅ Popup Full View */
-    #popup {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.8);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 999;
-    }
-
-    #popup img {
-        max-width: 92vw;
-        max-height: 92vh;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(255,255,255,0.8);
     }
 
     .footer {
         text-align: center;
         font-size: 18px;
         color: #b4005c;
-        padding: 15px;
         font-weight: bold;
+        padding: 5px;
     }
 
-    /* Floating hearts */
+    /* ✅ Popup full view */
+    #popup {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.85);
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
+    }
+
+    #popup img {
+        max-width: 94vw;
+        max-height: 94vh;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(255,255,255,0.8);
+    }
+
+    /* ✅ Hearts absolute so they NEVER push layout */
     .heart {
         position: fixed;
-        color: #ff0080;
+        bottom: -10px;
         font-size: 20px;
         animation: floatUp 3s linear infinite;
+        pointer-events: none;
     }
 
     @keyframes floatUp {
         from { transform: translateY(0) scale(1); opacity: 1; }
-        to { transform: translateY(-150px) scale(1.6); opacity: 0; }
+        to { transform: translateY(-200px) scale(1.4); opacity: 0; }
     }
 
-    /* ✅ Mobile responsive */
-    @media (max-width: 600px) {
-        .title {
-            font-size: 22px;
-        }
-        .collage img {
-            width: 46%;
-            height: 130px;
-        }
-    }
 </style>
 </head>
 <body>
 
-<div class="title">💖 My Cute Love Collage 💖</div>
+<div class="title">💗 My Cute Love Collage 💗</div>
 
 <div class="collage">
     <img src="https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2000.15.19_2519160e.jpg?updatedAt=1761939432141"  onclick="openPopup(this.src)">
@@ -123,12 +110,10 @@
     
     <img src="https://ik.imagekit.io/3mujmd6gs/mt/7.jpg?updatedAt=1761939432073">
 
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/9.jpg?updatedAt=1761939432155">
-</div>
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/9.jpg?updatedAt=1761939432155"></div>
 
-<div class="footer">❤️ Forever Together ❤️</div>
+<div class="footer">💞 Forever Together 💞</div>
 
-<!-- Popup Full Image -->
 <div id="popup" onclick="closePopup()">
     <img id="popupImg">
 </div>
@@ -142,16 +127,15 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 
-// Floating hearts
+/* ✅ Hearts no longer push layout, fixed position */
 setInterval(() => {
     let heart = document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.top = window.innerHeight + "px";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 3000);
-}, 400);
+}, 500);
 </script>
 
 </body>
