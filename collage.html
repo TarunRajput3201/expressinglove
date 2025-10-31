@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Love Collage</title>
+
 <style>
     body {
         margin: 0;
@@ -14,10 +15,10 @@
 
     .title {
         text-align: center;
-        font-size: 32px;
+        font-size: 28px;
         font-weight: bold;
         color: #d63384;
-        padding: 20px;
+        padding: 15px;
         text-shadow: 2px 2px #ffffff;
         animation: heartbeat 1.5s infinite;
     }
@@ -32,29 +33,49 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 12px;
-        padding: 15px;
+        gap: 10px;
+        padding: 10px;
     }
 
     .collage img {
-        width: 270px;
-        height: 230px;
+        width: 45%;
+        max-width: 180px;
+        height: 150px;
         object-fit: cover;
-        border-radius: 15px;
-        border: 4px solid white;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 12px;
+        border: 3px solid white;
+        box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        cursor: pointer;
+        transition: transform 0.2s ease;
     }
 
     .collage img:hover {
-        transform: scale(1.08);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        transform: scale(1.05);
+    }
+
+    /* ✅ Popup Full View */
+    #popup {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+    }
+
+    #popup img {
+        max-width: 92vw;
+        max-height: 92vh;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.8);
     }
 
     .footer {
         text-align: center;
-        font-size: 20px;
-        color: #c2185b;
+        font-size: 18px;
+        color: #b4005c;
         padding: 15px;
         font-weight: bold;
     }
@@ -71,22 +92,33 @@
         from { transform: translateY(0) scale(1); opacity: 1; }
         to { transform: translateY(-150px) scale(1.6); opacity: 0; }
     }
+
+    /* ✅ Mobile responsive */
+    @media (max-width: 600px) {
+        .title {
+            font-size: 22px;
+        }
+        .collage img {
+            width: 46%;
+            height: 130px;
+        }
+    }
 </style>
 </head>
 <body>
 
-<div class="title">💖 My Pyara Sa Bacchha 💖</div>
+<div class="title">💖 My Cute Love Collage 💖</div>
 
 <div class="collage">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2000.15.19_2519160e.jpg?updatedAt=1761939432141">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/1.jpg?updatedAt=1761939432102">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/10.jpg?updatedAt=1761939431731">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/12.jpg?updatedAt=1761939431748">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/5.jpg?updatedAt=1761939432045">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/2.jpg?updatedAt=1761939432098">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/4.jpg?updatedAt=1761939432072">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/3.jpg?updatedAt=1761939432079">
-    <img src="https://ik.imagekit.io/3mujmd6gs/mt/8.jpg?updatedAt=1761939432099">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2000.15.19_2519160e.jpg?updatedAt=1761939432141"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/1.jpg?updatedAt=1761939432102"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/10.jpg?updatedAt=1761939431731"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/12.jpg?updatedAt=1761939431748"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/5.jpg?updatedAt=1761939432045"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/2.jpg?updatedAt=1761939432098"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/4.jpg?updatedAt=1761939432072"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/3.jpg?updatedAt=1761939432079"  onclick="openPopup(this.src)">
+    <img src="https://ik.imagekit.io/3mujmd6gs/mt/8.jpg?updatedAt=1761939432099"  onclick="openPopup(this.src)">
     <img src="https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2001.13.32_8a6af7a0.jpg?updatedAt=1761939880907">
     
     <img src="https://ik.imagekit.io/3mujmd6gs/mt/7.jpg?updatedAt=1761939432073">
@@ -96,18 +128,30 @@
 
 <div class="footer">❤️ Forever Together ❤️</div>
 
-<script>
-    // Floating hearts effect
-    setInterval(() => {
-        let heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.top = window.innerHeight + "px";
-        document.body.appendChild(heart);
+<!-- Popup Full Image -->
+<div id="popup" onclick="closePopup()">
+    <img id="popupImg">
+</div>
 
-        setTimeout(() => heart.remove(), 3000);
-    }, 400);
+<script>
+function openPopup(src) {
+    document.getElementById("popupImg").src = src;
+    document.getElementById("popup").style.display = "flex";
+}
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// Floating hearts
+setInterval(() => {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = window.innerHeight + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+}, 400);
 </script>
 
 </body>
