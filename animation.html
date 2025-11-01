@@ -51,6 +51,11 @@
         margin-top: 20px;
     }
 
+    .active-img {
+        opacity: 1 !important;
+        transform: scale(1) !important; /* zoom to normal */
+    }
+
     /* Falling hearts */
     .heart {
         position: fixed;
@@ -89,9 +94,10 @@
 <div class="container">
     <h1>💗 Love You Mera Bacchha 💗</h1>
 
-    <div class="photo-box">
+    <!-- <div class="photo-box">
         <img id="mainImg" src="https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2000.15.19_2519160e.jpg?updatedAt=1761939432141">
-    </div>
+    </div> -->
+    <div class="photo-box" id="slideshow"></div>
 
     <div class="line1">💞 My world is beautiful because of you 💞</div>
 </div>
@@ -125,11 +131,27 @@ let images = [
     "https://ik.imagekit.io/3mujmd6gs/mt/1.jpg?updatedAt=1761939432102"
  ];
 
-let index = 0;
+// let index = 0;
+// setInterval(()=>{
+//     index = (index+1) % images.length;
+//     document.getElementById("mainImg").src = images[index];
+// }, 2500);
+images.forEach((src,i)=>{
+    let img = document.createElement("img");
+    img.src = src;
+    if(i === 0) img.classList.add("active-img");
+    box.appendChild(img);
+});
+
+let current = 0;
 setInterval(()=>{
-    index = (index+1) % images.length;
-    document.getElementById("mainImg").src = images[index];
-}, 2500);
+    let pics = document.querySelectorAll("#slideshow img");
+
+    pics[current].classList.remove("active-img");
+    current = (current+1) % pics.length;
+    pics[current].classList.add("active-img");
+
+}, 3000);
 
 
 // ✅ HEART FALLING
