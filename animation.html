@@ -1,145 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love You</title>
+
 <style>
-    body{
-        margin:0;
-        padding:0;
-        overflow:hidden;
-        background: linear-gradient(135deg, #ff9dc2, #ffb6d9, #ffd7ea);
-        font-family: "Poppins", sans-serif;
-        height:100vh;
-        width:100vw;
-        text-align:center;
+    body {
+        margin: 0;
+        background: linear-gradient(#ffa8c5,#ffb6d9,#ffcce6);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        overflow-x: hidden;
     }
 
-    /* TITLE TEXT */
-    .type {
-        position: relative;
-        margin-top: 8%;
-        width: 90%;
-        font-size: 24px;
-        font-weight:700;
-        color:white;
-        text-shadow:0 0 15px #ff0b77;
-        margin-left:auto;
-        margin-right:auto;
-        z-index:5;
+    .container {
+        width: 100%;
+        max-width: 480px;
+        margin: auto;
+        padding: 15px;
     }
 
-    /* IMAGE BOX */
+    h1 {
+        color: white;
+        font-size: 28px;
+        text-shadow: 2px 2px 4px #ff2d75;
+        margin-bottom: 15px;
+    }
+
     .photo-box {
-        margin-top: 40%;
-        width:100%;
-        max-width:330px;
-        height:460px;
-        border-radius:20px;
-        overflow:hidden;
-        box-shadow:0 0 15px #ff3e9e;
-        margin-left:auto;
-        margin-right:auto;
-        position:relative;
-        z-index:4;
-        background:white;
+        width: 100%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(255,0,100,0.4);
+        padding: 10px;
     }
 
-    /* EACH IMAGE */
     .photo-box img {
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        opacity:0;
-        position:absolute;
-        transition:1.2s ease-in-out;
-        display:block;
+        width: 100%;
+        border-radius: 10px;
+        display: block;
     }
 
-    /* FINAL LOVE TEXT */
-    .love-text{
-        margin-top: 6%;
-        width:100%;
-        font-size:32px;
-        font-weight:900;
-        color:white;
-        text-shadow:0 0 20px #ff0b77;
-        opacity:0;
-        z-index:5;
-        position:relative;
+    .line1 {
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 2px 2px 3px #d10052;
+        margin-top: 20px;
     }
 
-    /* HEARTS */
-    .heart{
-        position:absolute;
-        bottom:-20px;
-        font-size:20px;
-        color:#ff0b77;
-        opacity:0.8;
-        animation: floatUp 6s linear infinite;
-        z-index:2;
+    /* Falling hearts */
+    .heart {
+        position: fixed;
+        top: -10px;
+        font-size: 18px;
+        color: #ff007f;
+        animation: fall linear infinite;
+        pointer-events: none;
     }
 
-    @keyframes floatUp {
-        from{ transform:translateY(0) scale(0.8); opacity:1; }
-        to{ transform:translateY(-120vh) scale(1.7); opacity:0; }
+    @keyframes fall {
+        to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* FIREWORK CANVAS BEHIND EVERYTHING */
-    canvas{
-        position:fixed;
-        top:0;
-        left:0;
-        width:100vw;
-        height:100vh;
-        pointer-events:none;
-        z-index:1;
+    /* Fireworks dots */
+    .dot {
+        position: fixed;
+        width: 6px; height: 6px;
+        background: yellow;
+        border-radius: 50%;
+        animation: explode 1s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes explode {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(7); opacity: 0; }
     }
 </style>
 </head>
+
 <body>
 
-<div class="type" id="typeText"></div>
+<audio id="bgm" src="https://www.dropbox.com/scl/fi/z2u9j6r35j4mq5ru4y7ua/romantic.mp3?rlkey=7mm1r2i2b1psp9h0fua49zrl6&dl=1"></audio>
 
-<div class="photo-box">
-    <img id="p0">
-    <img id="p1">
-    <img id="p2">
-    <img id="p3">
-    <img id="p4">
-    <img id="p5">
-    <img id="p6">
-    <img id="p7">
-    <img id="p8">
-    <img id="p9">
-    <img id="p10">
-    <img id="p11">
+<div class="container">
+    <h1>💗 Reena, I Love You 💗</h1>
+
+    <div class="photo-box">
+        <img id="mainImg" src="YOUR-FIRST-IMAGE-LINK-HERE">
+    </div>
+
+    <div class="line1">My world is beautiful because of you 💞</div>
 </div>
 
-<div class="love-text" id="love">💖 Meenu, I LOVE YOU 💖</div>
-
-<canvas id="fireCanvas"></canvas>
-
-<audio id="bgmusic" loop>
-  <source src="https://cdn.pixabay.com/audio/2023/11/08/audio_39d4ed8701.mp3">
-</audio>
-
-
 <script>
-// ✅ TEXT TYPING EFFECT
-let text = "Meenu, ever since you came in my life, everything became beautiful 💗";
-let i = 0;
-function typeWriter(){
-    if(i < text.length){
-        document.getElementById("typeText").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 70);
+// ✅ MUSIC AUTOPLAY ON FIRST TAP
+let firstTap = false;
+function tryPlay() {
+    if(!firstTap){
+        document.getElementById("bgm").play();
+        firstTap = true;
     }
 }
-setTimeout(typeWriter, 800);
+document.body.addEventListener("touchstart", tryPlay);
+document.body.addEventListener("click", tryPlay);
 
-// ✅ PHOTOS
 
- let photos = [
+// ✅ PHOTO SLIDESHOW (no split anymore)
+let images = [
     "https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2001.13.32_8a6af7a0.jpg?updatedAt=1761939880907",
     "https://ik.imagekit.io/3mujmd6gs/mt/10.jpg?updatedAt=1761939431731",
     "https://ik.imagekit.io/3mujmd6gs/mt/12.jpg?updatedAt=1761939431748",
@@ -154,103 +123,36 @@ setTimeout(typeWriter, 800);
     "https://ik.imagekit.io/3mujmd6gs/mt/1.jpg?updatedAt=1761939432102"
  ];
 
-photos.forEach((src, idx)=>{
-    document.getElementById("p"+idx).src = src;
-});
+let index = 0;
+setInterval(()=>{
+    index = (index+1) % images.length;
+    document.getElementById("mainImg").src = images[index];
+}, 2500);
 
-let current = 0;
-function showPhotos(){
-    for(let j=0;j<12;j++){
-        document.getElementById("p"+j).style.opacity = "0";
-    }
-    document.getElementById("p"+current).style.opacity = "1";
-    current = (current+1)%12;
-}
-setInterval(showPhotos, 1700);
 
-// ✅ HEART RAIN
-function heartRain(){
+// ✅ HEART FALLING
+setInterval(()=>{
     let h = document.createElement("div");
-    h.classList.add("heart");
-    h.innerHTML = "💖";
+    h.className = "heart";
+    h.innerHTML = "💗";
     h.style.left = Math.random()*100 + "vw";
-    h.style.animationDuration = (4 + Math.random()*4) + "s";
+    h.style.animationDuration = (2 + Math.random()*4) + "s";
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(), 8000);
-}
-setInterval(heartRain, 300);
-
-// ✅ UNMUTE MUSIC ON TOUCH
-const bgmusic = document.getElementById("bgmusic");
-
-// Try autoplay muted
-bgmusic.volume = 1;
-bgmusic.muted = true;
-bgmusic.play().catch(()=>{});
-
-// ✅ On first tap/click → unmute + play
-function enableMusic(){
-    bgmusic.muted = false;
-    bgmusic.play();
-    document.removeEventListener("touchstart", enableMusic);
-    document.removeEventListener("click", enableMusic);
-}
-document.addEventListener("touchstart", enableMusic);
-document.addEventListener("click", enableMusic);
+    setTimeout(()=>h.remove(), 6000);
+}, 400);
 
 
-// ✅ FIREWORKS + I LOVE YOU
-setTimeout(()=>{
-    document.getElementById("love").style.opacity = "1";
-    startFireworks();
-}, 15000);
-
-// ✅ FIREWORK SYSTEM
-let canvas = document.getElementById("fireCanvas");
-let ctx = canvas.getContext("2d");
-let particles = [];
-
-function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resize();
-window.onresize = resize;
-
-function createFirework(){
-    let x = Math.random()*canvas.width;
-    let y = Math.random()*canvas.height/2;
-    for(let i=0;i<50;i++){
-        particles.push({
-            x:x, y:y,
-            color:`hsl(${Math.random()*360},100%,60%)`,
-            radius:Math.random()*3+1,
-            dx:(Math.random()-0.5)*5,
-            dy:(Math.random()-0.5)*5,
-            life:100
-        });
-    }
-}
-
-function drawFireworks(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p,i)=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
-        ctx.fillStyle=p.color;
-        ctx.fill();
-        p.x+=p.dx;
-        p.y+=p.dy;
-        p.life--;
-        if(p.life<=0) particles.splice(i,1);
-    });
-    requestAnimationFrame(drawFireworks);
-}
-
-function startFireworks(){
-    setInterval(createFirework,500);
-    drawFireworks();
-}
+// ✅ RANDOM FIREWORK DOTS
+setInterval(()=>{
+    let d = document.createElement("div");
+    d.className = "dot";
+    d.style.left = Math.random()*100 + "vw";
+    d.style.top = Math.random()*100 + "vh";
+    d.style.background = ["#ff00aa","#ffcc00","#00e6ff","#ff0066","#fff"][Math.floor(Math.random()*5)];
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),1000);
+}, 150);
 </script>
+
 </body>
 </html>
