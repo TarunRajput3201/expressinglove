@@ -94,10 +94,10 @@
 <div class="container">
     <h1>💗 Love You Mera Bacchha 💗</h1>
 
-    <!-- <div class="photo-box">
+    <div class="photo-box">
         <img id="mainImg" src="https://ik.imagekit.io/3mujmd6gs/mt/WhatsApp%20Image%202025-11-01%20at%2000.15.19_2519160e.jpg?updatedAt=1761939432141">
-    </div> -->
-    <div class="photo-box" id="slideshow"></div>
+    </div>
+    <!-- <div class="photo-box" id="slideshow"></div> -->
 
     <div class="line1">💞 My world is beautiful because of you 💞</div>
 </div>
@@ -131,28 +131,28 @@ let images = [
     "https://ik.imagekit.io/3mujmd6gs/mt/1.jpg?updatedAt=1761939432102"
  ];
 
-// let index = 0;
-// setInterval(()=>{
-//     index = (index+1) % images.length;
-//     document.getElementById("mainImg").src = images[index];
-// }, 2500);
-let box = document.getElementById("slideshow");
-images.forEach((src,i)=>{
-    let img = document.createElement("img");
-    img.src = src;
-    if(i === 0) img.classList.add("active-img");
-    box.appendChild(img);
-});
-
-let current = 0;
+let index = 0;
 setInterval(()=>{
-    let pics = document.querySelectorAll("#slideshow img");
+    index = (index+1) % images.length;
+    document.getElementById("mainImg").src = images[index];
+}, 2500);
+// let box = document.getElementById("slideshow");
+// images.forEach((src,i)=>{
+//     let img = document.createElement("img");
+//     img.src = src;
+//     if(i === 0) img.classList.add("active-img");
+//     box.appendChild(img);
+// });
 
-    pics[current].classList.remove("active-img");
-    current = (current+1) % pics.length;
-    pics[current].classList.add("active-img");
+// let current = 0;
+// setInterval(()=>{
+//     let pics = document.querySelectorAll("#slideshow img");
 
-}, 3000);
+//     pics[current].classList.remove("active-img");
+//     current = (current+1) % pics.length;
+//     pics[current].classList.add("active-img");
+
+// }, 3000);
 
 
 // ✅ HEART FALLING
