@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body{
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        background: linear-gradient(135deg, #ffbbd4, #ff9dc2, #ffd5e9);
+        font-family: "Poppins", sans-serif;
+        height:100vh;
+        width:100vw;
+    }
+
+    /* Main text box */
+    .msg-box{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        color:white;
+        text-align:center;
+        width:90%;
+        animation: fadeIn 2s forwards;
+    }
+
+    .line{
+        font-size: 26px;
+        font-weight:600;
+        text-shadow:0 0 15px #ff2e92;
+        opacity:0;
+    }
+
+    @keyframes fadeIn {
+        from{opacity:0;}
+        to{opacity:1;}
+    }
+
+    @keyframes showline {
+        from{opacity:0; transform:translateY(10px);}
+        to{opacity:1; transform:translateY(0);}
+    }
+
+    /* Floating Heart Animation */
+    .heart{
+        position:absolute;
+        bottom:-20px;
+        font-size:20px;
+        color:#ff0b77;
+        opacity:0.8;
+        animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+        0%{ transform:translateY(0) scale(0.8); opacity:1; }
+        100%{ transform:translateY(-120vh) scale(1.7); opacity:0; }
+    }
+
+    /* Sparkling dots */
+    .spark{
+        position:absolute;
+        width:5px;
+        height:5px;
+        background:white;
+        border-radius:50%;
+        animation: sparkle 3s linear infinite;
+        opacity:0.7;
+    }
+
+    @keyframes sparkle {
+        0%{ transform:translateY(0) scale(1); opacity:1; }
+        100%{ transform:translateY(-100vh) scale(0.2); opacity:0; }
+    }
+
+    /* Music button */
+    .music-btn{
+        position:fixed;
+        bottom:15px;
+        right:15px;
+        background:#ff2e92;
+        color:white;
+        border:none;
+        font-size:14px;
+        border-radius:20px;
+        padding:9px 15px;
+        box-shadow:0 0 10px white;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="msg-box">
+    <div class="line" id="l1">💗 From the moment I saw you...</div>
+    <div class="line" id="l2">💗 Something inside me whispered...</div>
+    <div class="line" id="l3">💗 “She is the one.”</div>
+    <div class="line" id="l4">🩷 Not just beautiful...</div>
+    <div class="line" id="l5">🩷 But perfect to my soul.</div>
+    <div class="line" id="l6">💞 My favorite person.</div>
+    <div class="line" id="l7">💞 My happiness.</div>
+    <div class="line" id="l8">💞 My forever.</div>
+</div>
+
+<button class="music-btn" onclick="playMusic()">Play Music</button>
+<audio id="bgmusic" src="https://www.bensound.com/bensound-music/bensound-love.mp3"></audio>
+
+<script>
+let lines = document.querySelectorAll(".line");
+let delay = 0;
+
+lines.forEach((line,index)=>{
+    setTimeout(()=>{
+        line.style.animation = "showline 1.5s forwards";
+    }, 1500*index);
+});
+
+/* Generate floating hearts */
+function heartRain(){
+    let h = document.createElement("div");
+    h.classList.add("heart");
+    h.innerHTML = "💖";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.animationDuration = (4 + Math.random()*4) + "s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 8000);
+}
+
+/* Generate sparkles */
+function makeSparkle(){
+    let s = document.createElement("div");
+    s.classList.add("spark");
+    s.style.left = Math.random()*100 + "vw";
+    s.style.animationDuration = (2 + Math.random()*2) + "s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(), 4000);
+}
+
+setInterval(heartRain, 300);
+setInterval(makeSparkle, 200);
+
+function playMusic(){
+    document.getElementById("bgmusic").play();
+}
+</script>
+
+</body>
+</html>
